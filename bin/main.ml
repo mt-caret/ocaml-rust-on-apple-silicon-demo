@@ -1,0 +1,1 @@
+let () = Rust_bindings.panic ()

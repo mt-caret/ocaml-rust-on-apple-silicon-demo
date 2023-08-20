@@ -1,0 +1,19 @@
+(rule
+ (deps
+  (source_tree ../rust))
+ (targets librust.a dllrust.so)
+ (action
+  (no-infer
+   (progn
+    (chdir
+     ../rust
+     (run cargo build))
+    (copy ../rust/target/debug/librust.dylib dllrust.so)
+    (copy ../rust/target/debug/librust.a librust.a)))))
+
+(library
+ (name rust_bindings)
+ (foreign_archives rust)
+ (inline_tests)
+ (preprocess
+  (pps ppx_jane)))
